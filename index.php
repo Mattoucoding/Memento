@@ -14,8 +14,8 @@ require 'connection.php';
         <div class="container navigation">
 			<a href="index.php"><img src="assets/images/memento.png" alt=""></a>
 			<nav>
-				<a href="">Login</a>
-				<a href="">Register</a>
+				<a href="login.php" title="login">Login</a>
+				<a href="register.php" title="register">Register</a>
 			</nav>
 		</div>
 	</header>
@@ -28,11 +28,8 @@ require 'connection.php';
         </div>
         <div class="box">
             <h2>Title</h2>
-            <ul>
-                <li>Nom</li>
-                <li>Date</li>
-                <li>Heure</li>
-            </ul>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <p>Date</p>
         </div>
     </main>
 </body>
