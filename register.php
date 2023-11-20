@@ -6,16 +6,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    $date = $_POST['date'];
 
 
     if (count($errors) === 0) {
-        $query = "INSERT INTO login(name, email, password) VALUES (:name, :email, :password)";
+        $query = "INSERT INTO login(name, email, date) VALUES (:name, :email, :date)";
         $response = $bdd->prepare($query);
         $response->execute([
             ':name' => $_POST['name'],
             ':email' => $_POST['email'],
-            ':password' => $_POST['password'],
+            ':date' => $_POST['date'],
         ]);
 
         header('location:index.php');
@@ -47,9 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php } ?>
         </div>
         <div>
-            <label for="password">Password : </label>
-            <input type="password" id="password" name="password" value="<?= $_POST['password'] ?? '' ?>">
-            <?php if (!empty($errors['password'])) {?>
+            <label for="date">date : </label>
+            <input type="date" id="date" name="date" value="<?= $_POST['date'] ?? '' ?>">
+            <?php if (!empty($errors['date'])) {?>
                 <br><span class='error'><?= $errors['brand'] ?></span>
             <?php } ?>
         </div>
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name']; 
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    $date = $_POST['date'];
     
     if (!isset($name)){
       die("Enter the name.");
@@ -67,8 +67,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!isset($email)){
       die("Enter the email.");
     }
-    if (!isset($password)){
-        die("Enter the password.");
+    if (!isset($date)){
+        die("Enter the date.");
     }
 }
 ?>
