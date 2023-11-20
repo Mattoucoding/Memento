@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-		<div class="container navigation">
+        <div class="container navigation">
 			<a href="index.php"><img src="assets/images/memento.png" alt=""></a>
 			<nav>
 				<a href="">Login</a>
@@ -16,5 +16,21 @@
 			</nav>
 		</div>
 	</header>
+    <hr>
+    <main>
+        <div class="section1">
+            <h1>Memento</h1>
+            <a href="new.php" title="new">
+            <button class="add button" type="button">Add Postit</button></a>
+        </div>
+        <div class="box">
+            <h2>Title</h2>
+            <ul>
+                <li>Nom</li>
+                <li>Date</li>
+                <li>Heure</li>
+            </ul>
+        </div>
+    </main>
 </body>
 </html>
