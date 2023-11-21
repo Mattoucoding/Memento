@@ -1,7 +1,8 @@
 <?php
 
 require 'connection.php';
-session_unset();
+unset($_SESSION["name"]);
+
 
 function validationEmail($email)
 {
@@ -29,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $stmt->bindParam(':email', $email);
                     $stmt->bindParam(':password', $hashedPassword);
                     $stmt->execute();
+
 
                     echo "Données enregistrées avec succès.";
 
@@ -60,10 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Register</title>
 </head>
 <body>
-<input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-
 
 <form action="register.php" method="post">
+<input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+
 
 
     <label for="name">Name :</label>
