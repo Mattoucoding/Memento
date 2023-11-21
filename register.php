@@ -9,6 +9,7 @@ function validationEmail($email)
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -45,6 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         echo 'Veuillez remplir tous les champs du formulaire.';
     }
+} else {
+
+    echo "Erreur CSRF : Tentative de manipulation du formulaire détectée.";
+}
 }
 ?>
 <!DOCTYPE html>
@@ -55,8 +60,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Register</title>
 </head>
 <body>
+<input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+
 
 <form action="register.php" method="post">
+
 
     <label for="name">Name :</label>
     <input type="text" id="name" name="name"><br>

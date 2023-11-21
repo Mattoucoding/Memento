@@ -5,7 +5,6 @@ session_start();
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
-
 try
 {
     $bdd = new PDO('mysql:host=localhost;dbname=memento;charset=utf8','root');

@@ -5,13 +5,13 @@ function validationEmail($email)
 {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
-if (!isset($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
     $email = $_POST['email'];
     $password = $_POST['password'];
+    
 
     if (!empty($email) && !empty($password)) {
         if (validationEmail($email) && strlen($password) >= 8) {
@@ -47,6 +47,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Les champs email et password ne peuvent pas être vides.";
     }
+} else {
+
+    echo "Erreur CSRF : Tentative de manipulation du formulaire détectée.";
+}
 }
 ?>
 
@@ -65,6 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h2 class="active">Sign In</h2>
 
     <form action="login.php" method="post">
+    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+
         <div>
             <label for="email">Email:</label>
             <input type="text" id="email" name="email" class="text" required>

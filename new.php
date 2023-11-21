@@ -4,6 +4,7 @@ require "connection.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if (isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
+
         
         $titre = $_POST['titre'];
         $content = $_POST['content'];
@@ -21,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Erreur : " . $e->getMessage();
         }
     } else {
-        
+
         echo "Erreur CSRF : Tentative de manipulation du formulaire détectée.";
     }
 }
