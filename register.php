@@ -1,25 +1,46 @@
 <?php
-require 'connection.php';
 session_start();
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $errors = [];
 
+require 'connection.php';
+
+function validationEmail($email)
+{
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $date = $_POST['date'];
+    $password = $_POST['password'];
+    $password_confirmation = $_POST['password_confirmation'];
 
+    if (!empty($name) && !empty($email) && !empty($password) && !empty($password_confirmation)) {
+        if (validationEmail($email) && strlen($password) >= 8) {
+            if ($password !== $password_confirmation) {
+                echo 'Les mots de passe ne correspondent pas.';
+            } else {
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    if (count($errors) === 0) {
-        $query = "INSERT INTO login(name, email, date) VALUES (:name, :email, :date)";
-        $response = $bdd->prepare($query);
-        $response->execute([
-            ':name' => $_POST['name'],
-            ':email' => $_POST['email'],
-            ':date' => $_POST['date'],
-        ]);
+                try {
+                    $stmt = $bdd->prepare("INSERT INTO login (name, email, password) VALUES (:name, :email, :password)");
+                    $stmt->bindParam(':name', $name);
+                    $stmt->bindParam(':email', $email);
+                    $stmt->bindParam(':password', $hashedPassword);
+                    $stmt->execute();
 
-        header('location:index.php');
-        exit();
+                    echo "Données enregistrées avec succès.";
+
+                    header("Location: logged.php");
+                    exit();
+                } catch (PDOException $e) {
+                    echo "Erreur : " . $e->getMessage();
+                }
+            }
+        } else {
+            echo 'Email invalide ou mot de passe trop court (minimum 8 caractères).';
+        }
+    } else {
+        echo 'Veuillez remplir tous les champs du formulaire.';
     }
 }
 ?>
@@ -27,50 +48,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" email="width=device-width, initial-scale=1.0">
-    <title>New</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
 </head>
 <body>
-		<form method="POST" action="">
-        <div>
-            <label for="name">Name : </label>
-            <input type="text" id="name" name="name" value="<?= $_POST['name'] ?? '' ?>">
-            <?php if (!empty($errors['name'])) {?>
-                <br><span class='error'><?= $errors['name'] ?></span>
-            <?php } ?>
-        </div>
-        <div>
-            <label for="email">Email : </label>
-            <input type="text" id="email" name="email" value="<?= $_POST['email'] ?? '' ?>">
-            <?php if (!empty($errors['email'])) {?>
-                <br><span class='error'><?= $errors['email'] ?></span>
-            <?php } ?>
-        </div>
-        <div>
-            <label for="date">date : </label>
-            <input type="date" id="date" name="date" value="<?= $_POST['date'] ?? '' ?>">
-            <?php if (!empty($errors['date'])) {?>
-                <br><span class='error'><?= $errors['brand'] ?></span>
-            <?php } ?>
-        </div>
-			<input type="submit" value="Submit" />
-		</form>
-        <?php
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name']; 
-    $email = $_POST['email'];
-    $date = $_POST['date'];
+
+<form action="register.php" method="post">
+
+    <label for="name">Name :</label>
+    <input type="text" id="name" name="name"><br>
+
+    <label for="email">Email :</label>
+    <input type="text" id="email" name="email"><br>
+
+    <label for="password">Mot de passe :</label>
+    <input type="password" id="password" name="password"><br>
+
+    <label for="password_confirmation">Confirmer le mot de passe :</label>
+    <input type="password" id="password_confirmation" name="password_confirmation"><br>
+
+    <input type="submit" value="S'inscrire">
+
+</form>
     
-    if (!isset($name)){
-      die("Enter the name.");
-    }
-    if (!isset($email)){
-      die("Enter the email.");
-    }
-    if (!isset($date)){
-        die("Enter the date.");
-    }
-}
-?>
 </body>
 </html>

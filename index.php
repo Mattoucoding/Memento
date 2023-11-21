@@ -14,7 +14,7 @@ require 'connection.php';
         <div class="container navigation">
 			<a href="index.php"><img src="assets/images/memento.png" alt=""></a>
 			<nav>
-				<a href="login.pgp">Login</a>
+				<a href="login.php">Login</a>
 				<a href="register.php">Register</a>
 			</nav>
 		</div>
