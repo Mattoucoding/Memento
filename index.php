@@ -23,8 +23,6 @@ require 'connection.php';
     <main>
         <div class="section1">
             <h1>Memento</h1>
-            <a href="new.php" title="new">
-            <button class="add button" type="button">Add Postit</button></a>
         </div>
                 <?php
                 $query = "SELECT * FROM post_it";
@@ -36,7 +34,7 @@ require 'connection.php';
     <div class="box">
         <h2><?= $data['titre'] ?></h2>
         <p><?= $data['content'] ?><br><?= $data['date'] ?></p>
-        <div><a href='delete.php?id=<?= $data['id'] ?>' title='<?= $data['titre'] ?>'>Supprimer</a></div>
+        <div><a href='delete.php?id=<?= $data['id'] ?>' title='<?= $data['titre'] ?>'></a></div>
     </div>
 <?php } ?>
             </ul>
