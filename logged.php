@@ -1,6 +1,7 @@
 <?php
-session_start();
 require 'connection.php';
+
+session_start();
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +18,7 @@ require 'connection.php';
 			<a href="index.php"><img src="assets/images/memento.png" alt=""></a>
 			<nav>
 				<p>Bonjour <?= $_SESSION['name']?></p>
-				<a href="logout.php">Logout</a>
+				<a href="index.php">Logout</a>
 			</nav>
 		</div>
 	</header>

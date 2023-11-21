@@ -1,11 +1,12 @@
 <?php
 session_start();
+session_unset();
 
 require 'connection.php';
 
 function validationEmail($email)
 {
-    return filter_var($email, FILTER_VALIDATE_EMAIL);
+    return filter_var($email, FILTER_VALIDATE_EMAIL);   
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -31,6 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     echo "Données enregistrées avec succès.";
 
+                    $_SESSION['name'] = $name;
+                    
                     header("Location: logged.php");
                     exit();
                 } catch (PDOException $e) {
