@@ -6,8 +6,11 @@ function validationEmail($email)
 {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -24,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     if (password_verify($password, $user['password'])) {
                         
                         $_SESSION['email'] = $user['email'];
-                        $_SESSION['password'] = $user['password'];
+                        $_SESSION['name'] = $user['name'];
                         $_SESSION['islog']= true;
                         header('Location: logged.php');
                         exit();

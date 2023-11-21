@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
     $deleteResponse = $bdd->prepare($deleteQuery);
     $deleteResponse->execute(['id' => $_GET['id']]);
 
-    header('location:index.php');
+    header('location:logged.php');
     exit();
 }
 ?>

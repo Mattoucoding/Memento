@@ -16,8 +16,8 @@ require 'connection.php';
         <div class="container navigation">
 			<a href="index.php"><img src="assets/images/memento.png" alt=""></a>
 			<nav>
-				<a href="login.php">Login</a>
-				<a href="register.php">Register</a>
+				<p>Bonjour <?= $_SESSION['name']?></p>
+				<a href="logout.php">Logout</a>
 			</nav>
 		</div>
 	</header>

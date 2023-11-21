@@ -19,11 +19,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($password !== $password_confirmation) {
                 echo 'Les mots de passe ne correspondent pas.';
             } else {
+
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
                 try {
                     $stmt = $bdd->prepare("INSERT INTO login (name, email, password) VALUES (:name, :email, :password)");
                     $stmt->bindParam(':name', $name);
                     $stmt->bindParam(':email', $email);
-                    $stmt->bindParam(':password', $password);
+                    $stmt->bindParam(':password', $hashedPassword);
                     $stmt->execute();
 
                     echo "Données enregistrées avec succès.";
