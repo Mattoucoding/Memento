@@ -14,8 +14,8 @@ require 'connection.php';
         <div class="container navigation">
 			<a href="index.php"><img src="assets/images/memento.png" alt=""></a>
 			<nav>
-				<a href="">Login</a>
-				<a href="">Register</a>
+				<a href="login.pgp">Login</a>
+				<a href="register.php">Register</a>
 			</nav>
 		</div>
 	</header>
@@ -26,14 +26,6 @@ require 'connection.php';
             <a href="new.php" title="new">
             <button class="add button" type="button">Add Postit</button></a>
         </div>
-        <div class="box">
-            <h2>Title</h2>
-            <ul>
-                <li>Nom</li>
-                <li>date</li>
-                <li>Heure</li>
-                <a href="delete.php" title="delete">
-                <button class="delete" type="button">Delete</button></a>
                 <?php
                 $query = "SELECT * FROM post_it";
                 $response = $bdd->query($query);
@@ -41,14 +33,12 @@ require 'connection.php';
 
                 foreach ($datas as $data) {
                 ?>
-    <div class="post-it">
-        <h4><?= $data['titre'] ?></h4>
+    <div class="box">
+        <h2><?= $data['titre'] ?></h2>
         <p><?= $data['content'] ?><br><?= $data['date'] ?></p>
         <div><a href='delete.php?id=<?= $data['id'] ?>' title='<?= $data['titre'] ?>'>Supprimer</a></div>
     </div>
-<?php
-}
-?>
+<?php } ?>
             </ul>
         </div>
     </main>

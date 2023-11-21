@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
     <h2>Confirmation de suppression</h2>
     <p>Confirmez-vous la suppression de la voiture suivante ?</p>
 
-    <strong>Title : </strong> <?= $data['title'] ?><br>
+    <strong>Title : </strong> <?= $data['titre'] ?><br>
     <strong>Content : </strong> <?= $data['content'] ?><br>
     <strong>Date : </strong> <?= $data['date'] ?><br>
 
