@@ -1,8 +1,7 @@
 <?php
-session_start();
-session_unset();
 
 require 'connection.php';
+session_unset();
 
 function validationEmail($email)
 {
@@ -33,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     echo "Données enregistrées avec succès.";
 
                     $_SESSION['name'] = $name;
-                    
+
                     header("Location: logged.php");
                     exit();
                 } catch (PDOException $e) {
