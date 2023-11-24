@@ -24,19 +24,19 @@ require 'connection.php';
         <div class="section1">
             <h1>Memento</h1>
         </div>
-                <?php
-                $query = "SELECT * FROM post_it";
-                $response = $bdd->query($query);
-                $datas = $response->fetchAll();
+                    <?php
+                    $query = "SELECT * FROM post_it";
+                    $response = $bdd->query($query);
+                    $datas = $response->fetchAll();
 
-                foreach ($datas as $data) {
-                ?>
-    <div class="box">
-        <h2><?= $data['titre'] ?></h2>
-        <p><?= $data['content'] ?><br><?= $data['date'] ?></p>
-        <div><a href='delete.php?id=<?= $data['id'] ?>' title='<?= $data['titre'] ?>'></a></div>
-    </div>
-<?php } ?>
+                    foreach ($datas as $data) {
+                    ?>
+        <div class="box">
+            <h2><?= $data['titre'] ?></h2>
+            <p><?= $data['content'] ?><br><?= $data['date'] ?></p>
+            <div><a href='delete.php?id=<?= $data['id'] ?>' title='<?= $data['titre'] ?>'></a></div>
+        </div>
+    <?php } ?>
             </ul>
         </div>
     </main>
